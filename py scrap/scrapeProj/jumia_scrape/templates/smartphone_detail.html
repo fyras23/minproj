@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{{ name }} - Smartphone Details</title>
+	<style>
+		/* Global styles */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Product image */
+.product-img {
+  max-width: 400px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Product name */
+.product-name {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+/* Product price */
+.product-price {
+  font-size: 20px;
+  color: #f00;
+  margin-bottom: 20px;
+}
+
+/* Product characteristics */
+.product-caract {
+  margin-bottom: 20px;
+}
+
+/* Product description */
+.product-desc {
+  margin-bottom: 20px;
+}
+
+/* Technical description */
+.product-tech {
+  margin-bottom: 20px;
+}
+
+/* Hidden elements */
+.hidden {
+  display: none;
+}
+
+/* Buttons */
+#show-caract-btn,
+#show-desc-btn {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img class="product-img" src="{{ image }}" alt="{{ name }} image">
+		<center><h1 class="product-name">{{ name }}</h1></center>
+    <center>	<p class="product-price">{{ price }}</p></center>
+<center>
+    <h2>Technical Description</h2>
+		
+			{% for tech in technicalDescription %}
+				<li>{{ tech }}</li>
+			{% empty %}
+				<li>No technical description available.</li>
+			{% endfor %}
+		
+  </center>
+  <br><br><br>
+<center>
+		<button id="show-caract-btn">Show Characteristics</button>
+        <button id="show-desc-btn">Show Description</button>
+
+		<h2 class="product-caract">Product Characteristics</h2>
+		
+			{% for caract in Caracteristics %}
+				<li>{{ caract }}</li>
+			{% empty %}
+				 <li>No characteristics available.</li>
+			{% endfor %}
+		
+
+		<h2 class="product-desc hidden">Product Description</h2>
+		<div class="product-desc hidden">
+			{% for desc in Description %}
+				<p>{{ desc }}</p>
+			{% empty %}
+				<p>No description available.</p>
+			{% endfor %}
+		</div>
+  </center>
+	
+	</div>
+
+	<!-- Js Plugins -->
+	<script>
+		const showCaractBtn = document.getElementById('show-caract-btn');
+        const showDescBtn = document.getElementById('show-desc-btn');
+        const productCaract = document.querySelector('.product-caract');
+        const productDesc = document.querySelector('.product-desc');
+
+        showCaractBtn.addEventListener('click', () => {
+            productCaract.classList.remove('hidden');
+            productDesc.classList.add('hidden');
+        });
+
+        showDescBtn.addEventListener('click', () => {
+            productDesc.classList.remove('hidden');
+            productCaract.classList.add('hidden');
+        });
+	</script>
+</body>
+</html>

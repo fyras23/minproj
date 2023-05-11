@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Page</title>
+    <style>
+      /* Style for each item */
+      .item {
+        display: inline-block;
+        width: 30%;
+        margin: 10px;
+        padding: 10px;
+        
+        text-align: center;
+      }
+
+      /* Style for item name */
+      .item h2 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+
+      /* Style for item price */
+      .item p {
+        font-size: 1.2rem;
+        margin: 10px 0;
+      }
+
+      /* Style for item image */
+      .item img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Style for pagination links */
+      .pagination {
+        margin: 20px 0;
+        text-align: center;
+      }
+      .pagination a,
+      .pagination .current-page {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 5px;
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        color: #333;
+        text-decoration: none;
+        font-size: 1.2rem;
+      }
+      .pagination .current-page {
+        background-color: #ccc;
+        color: #fff;
+      }
+
+      body {
+        background-color: #f2f2f2;
+      }
+
+      a {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      a:hover {
+        background-color: #0062cc;
+      }
+      form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  font-size: 1.2rem;
+}
+
+label {
+  margin-right: 10px;
+}
+
+select,
+input[type="number"] {
+  padding: 5px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: #4e4949;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.2s ease-in-out;
+}
+
+h1:hover {
+  text-transform: lowercase;
+}
+
+
+
+
+    </style>
+  </head>
+  <body>
+
+    
+
+    <h1>Smartphones</h1>
+    <br>
+    <form method="get">
+      <label for="brand">Brand:</label>
+      <select id="brand" name="brand">
+        <option value="">All</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Apple">Apple</option>
+        <option value="Xiaomi">Xiaomi</option>
+      </select>
+    
+      <label for="max_price">Max Price:</label>
+      <input type="number" id="max_price" name="max_price" min="0">
+    
+      <button type="submit">Filter</button>
+    </form>
+    {% for item in data_list %}
+    
+    
+    <div class="item">
+      <img src="{{ item.image }}" alt="{{ item.name }}">
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.price }} DT</p>
+      <a href="/smartphone{{item.link}}">Details</a>
+    </div>
+    {% endfor %}
+
+    <div class="pagination">
+      {% if data_list.has_previous and not brand and not max_price %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ data_list.previous_page_number }}">Previous</a>
+      {% endif %}
+    
+      {% for i in page_range %}
+        {% if i == current_page %}
+          <span class="current-page">{{ i }}</span>
+        {% else %}
+          <a href="?page={{ i }}{% if brand %}&brand={{ brand }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}">{{ i }}</a>
+        {% endif %}
+      {% endfor %}
+    
+      {% if data_list.has_next and not brand and not max_price %}
+        <a href="?page={{ data_list.next_page_number }}">Next</a>
+        <a href="?page={{ data_list.paginator.num_pages }}">&raquo; Last</a>
+      {% endif %}
+    </div>
+   
+    
+    
+    
+    
+    
+    
+    
+    </div>
+  </body>
+</html>
